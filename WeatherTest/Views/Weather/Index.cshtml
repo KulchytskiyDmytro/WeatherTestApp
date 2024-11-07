@@ -1,0 +1,31 @@
+﻿@model WeatherForecast
+@{
+    ViewBag.Title = "Weather Forecast";
+}
+<h2>Check Today's Weather</h2>
+
+<form asp-action="Index" method="get">
+    <label for="city">City:</label>
+    <input type="text" id="city" name="city" value="@Context.Request.Cookies["LastCity"]" placeholder="Enter city" />
+    <button type="submit">Get Forecast</button>
+</form>
+
+@if (TempData["RainWarning"] != null)
+{
+    <div class="alert alert-warning">@TempData["RainWarning"]</div>
+}
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
+}
+
+@if (Model != null)
+{
+    <div>
+        <h3>Weather in @Model.City</h3>
+        <p>High: @Model.TemperatureHigh°C</p>
+        <p>Low: @Model.TemperatureLow°C</p>
+        <p>Precipitation: @Model.Precipitation mm</p>
+    </div>
+}
